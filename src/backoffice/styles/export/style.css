@@ -1,0 +1,146 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Noto Sans Mono", "Monaco", "Consolas", "Courier New",
+    "DejaVu Sans Mono", monospace;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow: hidden;
+}
+
+img {
+  margin: 0px auto;
+  max-width: 256px;
+  width: 100%;
+}
+
+header {
+  background-color: #222222;
+  color: #ffffff;
+  padding: 4px;
+  height: 50px;
+  display: flex;
+}
+
+header a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: auto 0px auto 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.menu-button {
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-button ion-icon {
+  width: 36px;
+  height: 36px;
+  margin: auto;
+  user-select: none;
+}
+
+body {
+  margin: 0px;
+  overflow: hidden;
+}
+
+.backoffice-container {
+  display: flex;
+  height: calc(100vh - 50px);
+  width: 100%;
+}
+
+.sidebar-container {
+  flex: 0 0 260px;
+  min-height: 100%;
+}
+
+.sidebar-container .sidebar {
+  font-size: 1.2em;
+  width: 100%;
+  max-width: 100%;
+  background-color: #ef5350;
+  color: #ffffff;
+  min-height: 100%;
+  padding: 8px;
+  overflow: scroll;
+}
+
+.sidebar-container .sidebar ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 4px 0px;
+}
+
+.sidebar-container .sidebar ul li a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.sidebar-container .sidebar ul li a:hover {
+  color: #dddddd;
+  text-decoration: none;
+}
+
+.sidebar-container .sidebar-mobile-blank {
+  display: none;
+  min-height: 100%;
+}
+
+.main-container {
+  flex: 1 1 auto;
+  max-height: calc(100vh - 50px);
+  overflow-y: scroll;
+}
+
+main {
+  max-width: 800px;
+  margin: 0px;
+  padding: 8px;
+}
+
+@media all and (min-width: 0px) and (max-width: 1280px) {
+  .menu-button {
+    display: flex;
+  }
+
+  .sidebar-container .sidebar {
+    max-width: 260px;
+  }
+
+  .sidebar-container {
+    width: 100%;
+    min-height: calc(100vh - 50px);
+    top: 50px;
+    display: none;
+    position: absolute;
+    z-index: 9999;
+  }
+
+  .sidebar-container--invisible {
+    display: none;
+  }
+
+  .sidebar-container--visible {
+    display: flex;
+  }
+
+  .sidebar-container .sidebar-mobile-blank {
+    display: block;
+    width: calc(100% - 260px);
+    background-color: #181818;
+    opacity: 0.7;
+  }
+}

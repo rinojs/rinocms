@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <script type="text/javascript" src="/scripts/hello.js"></script>
+    <script type="text/javascript" src="/scripts/helloTS.js"></script>
+    <link rel="stylesheet" href="/styles/style.css" />
+    <meta name="description" content="Login" />
+    <meta name="og:title" content="Rino.js" />
+    <meta name="og:description" content="Login" />
+    <!-- 
+    <meta name="og:site_name" content="Site Name" />
+    <meta name="og:url" content="https://sitename/" />
+    <meta name="og:image" content=""/>
+    -->
+
+    <title>Rino CMS Backoffice Login</title>
+  </head>
+  <body>
+    <component @path="globalNav" />
+    <main>
+      <h2>Login</h2>
+      <form method="POST" action="/backoffice/login">
+        <input name="username" placeholder="Username" required />
+        <br />
+        <br />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          required
+        />
+        <br />
+        <br />
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <a href="/register">Register</a></p>
+    </main>
+    <footer></footer>
+  </body>
+</html>

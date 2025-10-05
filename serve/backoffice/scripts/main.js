@@ -1,0 +1,1 @@
+var main=function(e){"use strict";function menu(){const e=document.getElementById("sidebar-container");e.classList.toggle("sidebar-container--visible"),e.classList.toggle("sidebar-container--invisible")}return e.menu=menu,e}({});

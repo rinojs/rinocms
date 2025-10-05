@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+  nomodule
+  src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.js"
+></script>
+<link rel="stylesheet" href="/styles/style.css" />
+<script type="text/javascript" src="/scripts/main.js"></script>
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script type="text/javascript" src="/scripts/register.js"></script>
+    <meta
+      name="description"
+      content="Fast learning, preprocessing, intuitive web framework. Rino.js"
+    />
+    <meta name="og:title" content="Rino.js" />
+    <meta
+      name="og:description"
+      content="Fast learning, preprocessing, intuitive web framework. Rino.js"
+    />
+    <!-- 
+    <meta name="og:site_name" content="Site Name" />
+    <meta name="og:url" content="https://sitename/" />
+    <meta name="og:image" content=""/>
+    -->
+
+    <title>Rino CMS Login</title>
+  </head>
+  <body>
+    <div id="globalNav">
+  <a href="/">Home</a>
+  <a href="/login">login</a>
+  <a href="/register">register</a>
+</div>
+
+
+    <main>
+      <h2>Register</h2>
+      <form
+        id="register-form"
+        class="register-form"
+        method="POST"
+        action="/register"
+      >
+        <input
+          id="username-input"
+          class="username-input"
+          name="username"
+          placeholder="Username"
+          autocomplete="username"
+          required
+        />
+        <br />
+        <input
+          id="email-input"
+          class="email-input"
+          name="email"
+          tpye="email"
+          placeholder="Email"
+          autocomplete="email"
+          required
+        />
+        <br />
+        <input
+          id="password-input"
+          class="password-input"
+          name="password"
+          type="password"
+          autocomplete="new-password"
+          placeholder="Password"
+          required
+        />
+        <br />
+        <input
+          id="confirm-password-input"
+          class="confirm-password-input"
+          name="confirmPassword"
+          type="password"
+          autocomplete="new-password"
+          placeholder="Confirm Password"
+          required
+        />
+        <br />
+        <input type="text" name="website" style="display: none" />
+        <br />
+        <small id="form-msg"></small>
+        <br />
+        <button type="submit">Register</button>
+      </form>
+      <p>Already have an account? <a href="/login">Login</a></p>
+    </main>
+    <footer></footer>
+  </body>
+</html>

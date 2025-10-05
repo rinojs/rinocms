@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <script type="text/javascript" src="/scripts/hello.js"></script>
+    <script type="text/javascript" src="/scripts/helloTS.js"></script>
+    <link rel="stylesheet" href="/styles/style.css" />
+    <meta
+      name="description"
+      content="Fast learning, preprocessing, intuitive web framework. Rino.js"
+    />
+    <meta name="og:title" content="Rino.js" />
+    <meta
+      name="og:description"
+      content="Fast learning, preprocessing, intuitive web framework. Rino.js"
+    />
+    <!-- 
+    <meta name="og:site_name" content="Site Name" />
+    <meta name="og:url" content="https://sitename/" />
+    <meta name="og:image" content=""/>
+    -->
+
+    <title>Rino.js</title>
+  </head>
+  <body>
+    <component @path="globalNav" />
+    <main>
+      <img id="mainImg" src="/rino256.png" />
+      <h1>Fast learning, preprocessing, intuitive web framework</h1>
+      <a href="https://rinojs.org/" target="_blank">Rino Website!</a>
+      <a href="https://github.com/rinojs/rinojs" target="_blank">Github</a>
+      <component
+        @path="button"
+        @tag="button"
+        type="button"
+        onclick="hello.hello()"
+      />
+      <component
+        @path="button"
+        @tag="button"
+        type="button"
+        onclick="helloTS.hello()"
+      />
+      <script @type="md" type="text/markdown">
+        ## Hello world!
+
+        This is written in Markdown!
+
+        - This is written in Markdown!
+      </script>
+      <script @type="ts" type="text/typescript">
+        // This is for templating html content
+        let world: string = "Hello world! from typescript!";
+        console.log(world);
+      </script>
+      <script @type="js" type="text/javascript">
+        // This is for templating html content
+        console.log("Hello world! from javascript!");
+      </script>
+    </main>
+    <footer></footer>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <component @path="head" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="description" content="Best CMS, Rino CMS" />
+    <meta name="og:title" content="Rino CMS Backoffice" />
+    <meta name="og:description" content="Best CMS, Rino CMS" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Rino CMS Backoffice</title>
+  </head>
+  <body>
+    <component @path="header" />
+
+    <div id="backoffice-container" class="backoffice-container">
+      <component @path="sidebar" />
+      <div id="main-container" class="main-container">
+        <main>
+          <h1 class="page-title">Welcome to Rino CMS Backoffice!!</h1>
+          <h2>Rino.js resources</h2>
+          <ul class="links">
+            <li>
+              <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
+              <a
+                href="https://github.com/rinojs/rinocms"
+                target="_blank"
+                rel="noopener"
+              >
+                Rino CMS GitHub
+              </a>
+            </li>
+            <li>
+              <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
+              <a
+                href="https://github.com/rinojs/rinojs"
+                target="_blank"
+                rel="noopener"
+              >
+                Rino.js GitHub
+              </a>
+            </li>
+            <li>
+              <ion-icon name="globe-outline" aria-hidden="true"></ion-icon>
+              <a href="https://rinojs.org/" target="_blank" rel="noopener">
+                Rino.js Website
+              </a>
+            </li>
+            <li>
+              <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+              <a
+                href="https://github.com/sponsors/opdev1004"
+                target="_blank"
+                rel="noopener"
+              >
+                Support & Sponsoring
+              </a>
+            </li>
+          </ul>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

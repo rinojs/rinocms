@@ -1,0 +1,6 @@
+{
+  "watch": ["src/server"],
+  "ext": "js, mjs, cjs, ts, json",
+  "exec": "node ./src/server/app.js",
+  "delay": "1000"
+}
