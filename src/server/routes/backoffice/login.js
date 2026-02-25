@@ -6,6 +6,7 @@ import { dbDir, USERNAME_REGEX, EMAIL_REGEX, PASSWORD_REGEX, publicClientDir } f
 import bcrypt from 'bcrypt';
 import { dbCommandWithTimeout } from '../../db/dbProxy.js'
 import { doesAccountExist } from "../../db/index.js";
+import { badRequest, internalServerError } from '../utility/errorResponse.js';
 
 const router = Router();
 
@@ -13,17 +14,17 @@ router.post('/backoffice/login', async (req, res, next) =>
 {
     const username = (req.body?.username || "").trim();
     const password = String(req.body?.password || "").trim();
+    const email = "";
 
     if (!username || !USERNAME_REGEX.test(username) || username.includes("admin"))
-        return res.status(400).json({ ok: false, error: "Invalid username." });
+        return badRequest(res, "Invalid username.");
     if (!password || !PASSWORD_REGEX.test(password))
-        return res.status(400).json({ ok: false, error: "Invalid password." });
+        return badRequest(res, "Invalid password.");
 
     const accountCheckResult = await doesAccountExist(username, email);
 
     if (accountCheckResult)
-        return res.status(400).json({ ok: false, error: "Email or Username exists." });
-
+        return badRequest(res, "Email or Username exists.");
 
     const now = new Date().toISOString();
     const data = JSON.stringify({
@@ -41,7 +42,7 @@ router.post('/backoffice/login', async (req, res, next) =>
     if (!result)
     {
         // pass it to user already exist
-        return res.status(500).json({ ok: false, error: "Could not create user." });
+        return internalServerError(res, "Could not create user.");
     }
 
     return res.redirect(303, "/");
