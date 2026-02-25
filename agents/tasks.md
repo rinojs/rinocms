@@ -8,7 +8,7 @@
   - Acceptance: A new utility function provides consistent error JSON format across all routes; at least three existing route files updated to use it; error responses include ok:false, error message, and optional code.
   - Files: src/server/utility/errorResponse.js, src/server/routes/doesAccountExist.js, src/server/routes/.register.js, src/server/routes/backoffice/login.js
 
-- [doing] TASK: Add health check endpoint
+- [done] TASK: Add health check endpoint
   - Acceptance: GET /health returns { ok: true, timestamp: ISO string } with 200 status; endpoint does not require authentication; added to src/server/routes/health.js and loaded via loadRoutes.
   - Files: src/server/routes/health.js, src/server/app.js (or ensure route auto-loads)
 
