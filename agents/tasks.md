@@ -12,7 +12,7 @@
   - Acceptance: GET /health returns { ok: true, timestamp: ISO string } with 200 status; endpoint does not require authentication; added to src/server/routes/health.js and loaded via loadRoutes.
   - Files: src/server/routes/health.js, src/server/app.js (or ensure route auto-loads)
 
-- [todo] TASK: Fix backoffice/login.js account‑existence check
+- [done] TASK: Fix backoffice/login.js account‑existence check
   - Acceptance: Replace doesAccountExist call with doesAccountExistByUsername; remove email parameter; ensure route still validates username/password correctly; keep error responses consistent.
   - Files: src/server/routes/backoffice/login.js
 
@@ -23,3 +23,15 @@
 - [todo] TASK: Add request validation middleware
   - Acceptance: Create validateRequest middleware that validates email, username, password using regex from config; apply to at least two existing routes (register, login) to reduce duplication; middleware returns appropriate error response via errorResponse utility.
   - Files: src/server/utility/validateRequest.js, src/server/routes/.register.js, src/server/routes/backoffice/login.js
+
+- [todo] TASK: Fix dbProxy timeout memory leak
+  - Acceptance: dbCommandWithTimeout cleans up pendingMap entry on timeout; subsequent child response for same id is ignored; no memory leak.
+  - Files: src/server/db/dbProxy.js
+
+- [todo] TASK: Add security headers middleware
+  - Acceptance: Middleware sets X-Content-Type-Options: nosniff, X-Frame-Options: DENY, X-XSS-Protection: 1; mode=block; integrated into src/server/app.js after requestLogger.
+  - Files: src/server/utility/securityHeaders.js, src/server/app.js
+
+- [todo] TASK: Add request ID middleware
+  - Acceptance: Middleware adds a unique request ID (UUID v4 or timestamp+random) to each request, attaches it to req.id and includes it in response headers (X-Request-ID); requestLogger includes requestId in log context.
+  - Files: src/server/utility/requestId.js, src/server/app.js, src/server/utility/requestLogger.js
