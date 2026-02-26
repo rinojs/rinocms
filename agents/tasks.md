@@ -24,7 +24,7 @@
   - Acceptance: Create validateRequest middleware that validates email, username, password using regex from config; apply to at least two existing routes (register, login) to reduce duplication; middleware returns appropriate error response via errorResponse utility.
   - Files: src/server/utility/validateRequest.js, src/server/routes/.register.js, src/server/routes/backoffice/login.js
 
-- [todo] TASK: Fix dbProxy timeout memory leak
+- [done] TASK: Fix dbProxy timeout memory leak
   - Acceptance: dbCommandWithTimeout cleans up pendingMap entry on timeout; subsequent child response for same id is ignored; no memory leak.
   - Files: src/server/db/dbProxy.js
 

@@ -50,20 +50,25 @@ process.on('exit', () =>
     child.kill();
 });
 
-function dbCommand(cmd, ...args)
+export function dbCommandWithTimeout(ms, cmd, ...args)
 {
-    return new Promise((resolve, reject) =>
+    const id = getNextId();
+    const promise = new Promise((resolve, reject) =>
     {
-        const id = getNextId();
         pendingMap.set(id, { resolve, reject });
         child.send({ cmd, id, args });
     });
-}
 
-export function dbCommandWithTimeout(ms, cmd, ...args)
-{
-    return Promise.race([
-        dbCommand(cmd, ...args),
-        new Promise((_, reject) => setTimeout(() => reject(new Error(`dbCommand timeout: ${ cmd }`)), ms))
-    ]);
+    const timeout = new Promise((_, reject) =>
+    {
+        const timer = setTimeout(() =>
+        {
+            pendingMap.delete(id);
+            reject(new Error(`dbCommand timeout: ${ cmd }`));
+        }, ms);
+        // Clean up timer if promise settles before timeout
+        promise.finally(() => clearTimeout(timer));
+    });
+
+    return Promise.race([promise, timeout]);
 }
