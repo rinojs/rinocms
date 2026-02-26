@@ -20,7 +20,7 @@
   - Acceptance: Create logInfo function in logError.js (or separate file) that logs context without error object; update requestLogger to use logInfo; ensure semaphore usage maintained; logs retain same format except err object omitted or null.
   - Files: src/server/utility/logError.js, src/server/utility/requestLogger.js
 
-- [todo] TASK: Add request validation middleware
+- [done] TASK: Add request validation middleware
   - Acceptance: Create validateRequest middleware that validates email, username, password using regex from config; apply to at least two existing routes (register, login) to reduce duplication; middleware returns appropriate error response via errorResponse utility.
   - Files: src/server/utility/validateRequest.js, src/server/routes/.register.js, src/server/routes/backoffice/login.js
 
@@ -39,6 +39,18 @@
 - [todo] TASK: Rename backoffice/login.js to backoffice/register.js
   - Acceptance: File renamed, route path changed from /backoffice/login to /backoffice/register; import statements updated where referenced; no change in functionality.
   - Files: src/server/routes/backoffice/login.js, src/server/routes/backoffice/register.js (new), src/server/app.js (if any direct reference), src/server/utility/loadRoutes.js (if path mapping needed)
+
+- [todo] TASK: Add setup validation for existing data directories
+  - Acceptance: In setup.js, check if data/ and log/ directories exist; create them if missing with appropriate permissions; log action to console.
+  - Files: src/server/setup.js
+
+- [todo] TASK: Extract regex validation into separate utility
+  - Acceptance: Create validateRegex utility that exports functions validateUsername, validateEmail, validatePassword using regex from config; use in at least one route to reduce duplication.
+  - Files: src/server/utility/validateRegex.js, src/server/routes/.register.js (or backoffice/register.js)
+
+- [todo] TASK: Add rate‑limiting middleware for auth endpoints
+  - Acceptance: Middleware limits /backoffice/login (or /backoffice/register) and /register to 5 requests per minute per IP; uses simple in‑memory store; returns 429 with error response.
+  - Files: src/server/utility/rateLimit.js, src/server/app.js (or apply per‑route)
 
 - [todo] TASK: Add success response utility
   - Acceptance: Create sendSuccess function in errorResponse.js (or separate) that returns { ok: true, data?: ... } with optional data; update health endpoint to use it; at least one other success response (e.g., doesAccountExist) updated.

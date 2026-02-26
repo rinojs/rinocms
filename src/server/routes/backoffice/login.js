@@ -2,23 +2,19 @@ import { Router } from "express";
 import path from 'path';
 import { sendNotFound } from "../../sender/sendNotFound.js";
 import { sendHTML } from '../../sender/sendHTML.js';
-import { dbDir, USERNAME_REGEX, PASSWORD_REGEX, publicClientDir } from "../../config.js";
+import { dbDir, publicClientDir } from "../../config.js";
 import bcrypt from 'bcrypt';
 import { dbCommandWithTimeout } from '../../db/dbProxy.js'
 import { doesAccountExistByUsername } from "../../db/index.js";
 import { badRequest, internalServerError } from '../utility/errorResponse.js';
+import { validateRequest } from '../utility/validateRequest.js';
 
 const router = Router();
 
-router.post('/backoffice/login', async (req, res, next) =>
+router.post('/backoffice/login', validateRequest(['username', 'password']), async (req, res, next) =>
 {
     const username = (req.body?.username || "").trim();
     const password = String(req.body?.password || "").trim();
-
-    if (!username || !USERNAME_REGEX.test(username) || username.includes("admin"))
-        return badRequest(res, "Invalid username.");
-    if (!password || !PASSWORD_REGEX.test(password))
-        return badRequest(res, "Invalid password.");
 
     const accountCheckResult = await doesAccountExistByUsername(username);
 
