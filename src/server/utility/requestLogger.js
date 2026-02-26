@@ -1,4 +1,4 @@
-import { logError } from './logError.js';
+import { logInfo } from './logError.js';
 
 export function requestLogger()
 {
@@ -19,7 +19,7 @@ export function requestLogger()
             await global.ioSemaphore.acquire();
             try
             {
-                await logError(null, context);
+                await logInfo(context);
             }
             catch (err)
             {

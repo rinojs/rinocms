@@ -14,14 +14,18 @@ export async function logError(err, context = {})
         const entry = {
             ts: new Date().toISOString(),
             pid: process.pid,
-            ...context,
-            err: {
+            ...context
+        };
+        // Only include err property if err is not null/undefined
+        if (err != null)
+        {
+            entry.err = {
                 name: err?.name,
                 code: err?.code,
                 message: err?.message,
                 stack: err?.stack
-            }
-        };
+            };
+        }
         await fsp.appendFile(logFileName, JSON.stringify(entry) + '\n', 'utf8');
     }
     catch (e)
@@ -29,4 +33,12 @@ export async function logError(err, context = {})
         console.error(`LOG FAILED: ${ e }`);
         console.error(`ORIGINAL ERROR: ${ err }, CTX: ${ context }`);
     }
+}
+
+/**
+ * Log informational context (no error).
+ */
+export async function logInfo(context = {})
+{
+    await logError(null, context);
 }
