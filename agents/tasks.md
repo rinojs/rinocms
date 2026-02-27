@@ -1,35 +1,7 @@
 # Tasks
 
-- [done] TASK: Add request logging middleware
-  - Acceptance: Each HTTP request is logged with method, path, status code, and response time. Logs are written to server.log using the existing logError utility (call logError with null error and context containing method, path, status, durationMs). Middleware must acquire global.ioSemaphore before calling logError and release after to respect IO concurrency limits. Middleware is integrated into src/server/app.js before route handlers.
-  - Files: src/server/utility/requestLogger.js, src/server/app.js
-
-- [done] TASK: Create standard error response utility
-  - Acceptance: A new utility function provides consistent error JSON format across all routes; at least three existing route files updated to use it; error responses include ok:false, error message, and optional code.
-  - Files: src/server/utility/errorResponse.js, src/server/routes/doesAccountExist.js, src/server/routes/.register.js, src/server/routes/backoffice/login.js
-
-- [done] TASK: Add health check endpoint
-  - Acceptance: GET /health returns { ok: true, timestamp: ISO string } with 200 status; endpoint does not require authentication; added to src/server/routes/health.js and loaded via loadRoutes.
-  - Files: src/server/routes/health.js, src/server/app.js (or ensure route auto-loads)
-
-- [done] TASK: Fix backoffice/login.js account‑existence check
-  - Acceptance: Replace doesAccountExist call with doesAccountExistByUsername; remove email parameter; ensure route still validates username/password correctly; keep error responses consistent.
-  - Files: src/server/routes/backoffice/login.js
-
-- [done] TASK: Add info logging utility
-  - Acceptance: Create logInfo function in logError.js (or separate file) that logs context without error object; update requestLogger to use logInfo; ensure semaphore usage maintained; logs retain same format except err object omitted or null.
-  - Files: src/server/utility/logError.js, src/server/utility/requestLogger.js
-
-- [done] TASK: Add request validation middleware
-  - Acceptance: Create validateRequest middleware that validates email, username, password using regex from config; apply to at least two existing routes (register, login) to reduce duplication; middleware returns appropriate error response via errorResponse utility.
-  - Files: src/server/utility/validateRequest.js, src/server/routes/.register.js, src/server/routes/backoffice/login.js
-
-- [done] TASK: Fix dbProxy timeout memory leak
-  - Acceptance: dbCommandWithTimeout cleans up pendingMap entry on timeout; subsequent child response for same id is ignored; no memory leak.
-  - Files: src/server/db/dbProxy.js
-
-- [todo] TASK: Add security headers middleware
-  - Acceptance: Middleware sets X-Content-Type-Options: nosniff, X-Frame-Options: DENY, X-XSS-Protection: 1; mode=block; integrated into src/server/app.js after requestLogger.
+- [done] TASK: Add security headers middleware
+  - Acceptance: Middleware sets X-Content-Type-Options: nosniff, X-Frame-Options: DENY, X-XSS-Protection: 1; mode=block. Integrated into src/server/app.js after requestLogger.
   - Files: src/server/utility/securityHeaders.js, src/server/app.js
 
 - [todo] TASK: Add request ID middleware
@@ -43,10 +15,6 @@
 - [todo] TASK: Add setup validation for existing data directories
   - Acceptance: In setup.js, check if data/ and log/ directories exist; create them if missing with appropriate permissions; log action to console.
   - Files: src/server/setup.js
-
-- [todo] TASK: Extract regex validation into separate utility
-  - Acceptance: Create validateRegex utility that exports functions validateUsername, validateEmail, validatePassword using regex from config; use in at least one route to reduce duplication.
-  - Files: src/server/utility/validateRegex.js, src/server/routes/.register.js (or backoffice/register.js)
 
 - [todo] TASK: Add rate‑limiting middleware for auth endpoints
   - Acceptance: Middleware limits /backoffice/login (or /backoffice/register) and /register to 5 requests per minute per IP; uses simple in‑memory store; returns 429 with error response.
