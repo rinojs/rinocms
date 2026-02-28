@@ -2,6 +2,8 @@
 
 - [done] TASK: Implement secure session token generation and storage
   - Acceptance: Replace simple token generation with crypto.randomBytes(32).toString('hex'); store session in 'session' database (crumbdb) with token, userId, createdAt, expiresAt (24h); update login endpoint to store session; create helper function to verify token and retrieve userId.
+  - Required fixes:
+    - Add import of internalServerError (or sendError) in src/server/routes/login.js to handle session storage failure gracefully.
   - Files: src/server/routes/login.js, src/server/db/session.js (new), src/server/utility/session.js (new)
 
 
