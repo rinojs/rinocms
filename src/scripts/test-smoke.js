@@ -2,14 +2,15 @@
 
 /**
  * Smoke test for RinoCMS server.
- * Assumes server is running on localhost:3333 (default port).
+ * Reads PORT environment variable (default 3333).
  * Requests /health endpoint and validates response shape and status.
  * Exits with code 0 on success, 1 on failure.
  */
 
 import { setTimeout } from 'node:timers/promises';
 
-const HEALTH_URL = 'http://localhost:3333/health';
+const PORT = process.env.PORT || 3333;
+const HEALTH_URL = `http://localhost:${ PORT }/health`;
 const TIMEOUT_MS = 5000; // 5 seconds
 
 async function smokeTest() {
