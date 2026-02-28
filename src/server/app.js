@@ -24,6 +24,7 @@ app.use(requestId());
 app.use(securityHeaders());
 app.use('/register', rateLimit);
 app.use('/backoffice/register', rateLimit);
+app.use('/login', rateLimit);
 await loadRoutes(app, path.resolve(__dirname, '../api'));
 app.use('/backoffice', express.static(backofficeDir));
 await loadRoutes(app, path.resolve(__dirname, './routes'));
