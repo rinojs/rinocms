@@ -3,8 +3,22 @@ import bcrypt from 'bcrypt';
 import { dbDir, DB_TIMEOUT, EMAIL_REGEX, USERNAME_REGEX } from "../config.js";
 import { dbCommandWithTimeout } from '../db/dbProxy.js';
 import { sendError, badRequest } from '../utility/errorResponse.js';
+import { validateRequest } from '../utility/validateRequest.js';
+import { validateRequest } from '../utility/validateRequest.js';
 
 const router = Router();
+
+/**
+ * Middleware that validates login request: either username+password or email+password.
+ * Uses validateRequest middleware for the chosen identifier.
+ */
+function validateLogin(req, res, next) {
+    const { email } = req.body;
+    // Choose which validation middleware to run
+    const middleware = email ? validateRequest(['email', 'password']) : validateRequest(['username', 'password']);
+    // Run the chosen middleware
+    middleware(req, res, next);
+}
 
 /**
  * Helper to find account by username or email.
@@ -23,7 +37,7 @@ async function findAccountByUsernameOrEmail(username, email)
     return { key, data: JSON.parse(data) };
 }
 
-router.post('/login', async (req, res, next) =>
+router.post('/login', validateLogin, async (req, res, next) =>
 {
     const username = (req.body?.username || "").trim();
     const email = (req.body?.email || "").trim();
