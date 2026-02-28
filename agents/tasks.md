@@ -1,5 +1,9 @@
 # Tasks
 
+- [done] TASK: Fix dbProxy timeout memory leak
+  - Acceptance: dbCommandWithTimeout cleans up pendingMap entry on timeout; subsequent child response for same id is ignored; no memory leak.
+  - Files: src/server/db/dbProxy.js
+
 - [done] TASK: Add security headers middleware
   - Acceptance: Middleware sets X-Content-Type-Options: nosniff, X-Frame-Options: DENY, X-XSS-Protection: 1; mode=block. Integrated into src/server/app.js after requestLogger.
   - Files: src/server/utility/securityHeaders.js, src/server/app.js
@@ -12,7 +16,7 @@
   - Acceptance: File renamed, route path changed from /backoffice/login to /backoffice/register; import statements updated where referenced; no change in functionality.
   - Files: src/server/routes/backoffice/login.js, src/server/routes/backoffice/register.js (new), src/server/app.js (if any direct reference), src/server/utility/loadRoutes.js (if path mapping needed)
 
-- [todo] TASK: Add setup validation for existing data directories
+- [done] TASK: Add setup validation for existing data directories
   - Acceptance: In setup.js, check if data/ and log/ directories exist; create them if missing with appropriate permissions; log action to console.
   - Files: src/server/setup.js
 

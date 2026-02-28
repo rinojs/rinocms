@@ -1,9 +1,11 @@
 import chalk from 'chalk';
 import { input, confirm, password } from '@inquirer/prompts';
-import { dbDir } from "./config.js";
+import { dbDir, logDir } from "./config.js";
 import bcrypt from 'bcrypt';
 import { dbCommandWithTimeout } from './db/dbProxy.js'
 import { addAdminAccount } from './db/index.js';
+import fs from 'fs/promises';
+import path from 'path';
 
 export async function setup()
 {
@@ -26,6 +28,22 @@ export async function setup()
 ${ chalk.white.bold('Become a sponsor & support Rino CMS!') }
 ${ chalk.white('https://github.com/sponsors/opdev1004') }
 `);
+
+    // Ensure required directories exist
+    const directories = [dbDir, logDir];
+    for (const dir of directories)
+    {
+        try
+        {
+            await fs.access(dir);
+            console.log(chalk.gray(`✅ Directory already exists: ${ dir }`));
+        }
+        catch
+        {
+            await fs.mkdir(dir, { recursive: true, mode: 0o755 });
+            console.log(chalk.green(`📁 Created directory: ${ dir }`));
+        }
+    }
 
     console.log('Checking Admin...');
 
