@@ -11,7 +11,7 @@ import { validateRequest } from '../utility/validateRequest.js';
 
 const router = Router();
 
-router.post('/backoffice/login', validateRequest(['username', 'password']), async (req, res, next) =>
+router.post('/backoffice/register', validateRequest(['username', 'password']), async (req, res, next) =>
 {
     const username = (req.body?.username || "").trim();
     const password = String(req.body?.password || "").trim();

@@ -4,11 +4,11 @@
   - Acceptance: Middleware sets X-Content-Type-Options: nosniff, X-Frame-Options: DENY, X-XSS-Protection: 1; mode=block. Integrated into src/server/app.js after requestLogger.
   - Files: src/server/utility/securityHeaders.js, src/server/app.js
 
-- [todo] TASK: Add request ID middleware
+- [done] TASK: Add request ID middleware
   - Acceptance: Middleware adds a unique request ID (UUID v4 or timestamp+random) to each request, attaches it to req.id and includes it in response headers (X-Request-ID); requestLogger includes requestId in log context.
   - Files: src/server/utility/requestId.js, src/server/app.js, src/server/utility/requestLogger.js
 
-- [todo] TASK: Rename backoffice/login.js to backoffice/register.js
+- [done] TASK: Rename backoffice/login.js to backoffice/register.js
   - Acceptance: File renamed, route path changed from /backoffice/login to /backoffice/register; import statements updated where referenced; no change in functionality.
   - Files: src/server/routes/backoffice/login.js, src/server/routes/backoffice/register.js (new), src/server/app.js (if any direct reference), src/server/utility/loadRoutes.js (if path mapping needed)
 
