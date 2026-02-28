@@ -27,3 +27,16 @@ export function internalServerError(res, message = "Internal server error", code
 {
     return sendError(res, 500, message, code);
 }
+
+/**
+ * Standard success response utility.
+ * @param {import('express').Response} res - Express response object.
+ * @param {any} [data] - Optional data to include in response.
+ * @param {number} [status=200] - HTTP status code.
+ */
+export function sendSuccess(res, data = null, status = 200)
+{
+    const response = { ok: true };
+    if (data !== null) response.data = data;
+    return res.status(status).json(response);
+}

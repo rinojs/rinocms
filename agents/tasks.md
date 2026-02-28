@@ -1,16 +1,25 @@
 # Tasks
 
-- [done] TASK: Add rate‑limiting middleware for auth endpoints
-  - Acceptance: Middleware limits /backoffice/login (or /backoffice/register) and /register to 5 requests per minute per IP; uses simple in‑memory store; returns 429 with error response.
-  - Files: src/server/utility/rateLimit.js, src/server/app.js (or apply per‑route)
-
-
-- [todo] TASK: Add success response utility
+- [done] TASK: Add success response utility
   - Acceptance: Create sendSuccess function in errorResponse.js (or separate) that returns { ok: true, data?: ... } with optional data; update health endpoint to use it; at least one other success response (e.g., doesAccountExist) updated.
   - Files: src/server/utility/errorResponse.js, src/server/routes/health.js, src/server/routes/doesAccountExist.js
+
 
 
 - [todo] TASK: Add smoke test script
   - Acceptance: Create src/scripts/test-smoke.js that starts server (or assumes running), requests /health, validates response shape and status, logs result, exits with code 0 on success, 1 on failure; script can be run with node.
   - Files: src/scripts/test-smoke.js
+
+
+
+- [todo] TASK: Add periodic cleanup to rate limiting middleware
+  - Acceptance: Add a setInterval (or similar) that runs every hour and removes entries older than windowMs from the rate‑limit store; ensure cleanup does not block the event loop; log cleanup activity in development mode.
+  - Files: src/server/utility/rateLimit.js
+
+
+
+- [todo] TASK: Add Content‑Security‑Policy header
+  - Acceptance: Extend securityHeaders middleware to include a basic Content‑Security‑Policy header that restricts script sources to 'self' and disables inline scripts; header value: "default‑src 'self'; script‑src 'self'; style‑src 'self';".
+  - Files: src/server/utility/securityHeaders.js
+
 

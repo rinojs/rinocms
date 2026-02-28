@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { EMAIL_REGEX, dbDir } from "../config.js";
 import { dbCommandWithTimeout } from '../db/dbProxy.js'
-import { badRequest } from '../utility/errorResponse.js'
+import { badRequest, sendSuccess } from '../utility/errorResponse.js'
 
 const router = Router();
 
@@ -14,7 +14,7 @@ router.post('/does-account-exist', async (req, res, next) =>
 
     const result = await dbCommandWithTimeout(10000, "get", dbDir, "rinocms", "account", email);
 
-    if (!result) return res.status(200).json({ ok: true });
+    if (!result) return sendSuccess(res);
     else return badRequest(res, "Account with the email exists");
 });
 
