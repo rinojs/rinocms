@@ -13,7 +13,8 @@ export function requestLogger()
                 method: req.method,
                 path: req.path,
                 status: res.statusCode,
-                durationMs
+                durationMs,
+                requestId: req.id || null
             };
 
             await global.ioSemaphore.acquire();
