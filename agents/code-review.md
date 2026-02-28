@@ -1,0 +1,5 @@
+- Task Reviewed: Reuse validateRequest middleware in login endpoint
+- Acceptance Criteria Status: Met (Replaced manual validation with validateLogin middleware that conditionally uses validateRequest(['email', 'password']) or validateRequest(['username', 'password']))
+- Risks: 1) If both email and username are provided, email validation is used (username ignored) – acceptable but could be surprising. 2) Error messages may differ from previous (e.g., “Username is required” vs “Username or email required”). 3) The validateRequest middleware does not check that at least one identifier is present—instead it validates either email or username based on presence of email field (if email truthy, validates email; otherwise validates username). This could lead to a scenario where email is empty string but truthy? Actually empty string is falsy. So if email is empty string, email is falsy, so username validation will be attempted. That's fine.
+- Required Fixes (if any): None
+- Decision: Approved

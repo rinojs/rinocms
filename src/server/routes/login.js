@@ -4,6 +4,7 @@ import { dbDir, DB_TIMEOUT, EMAIL_REGEX, USERNAME_REGEX } from "../config.js";
 import { dbCommandWithTimeout } from '../db/dbProxy.js';
 import { sendError, badRequest } from '../utility/errorResponse.js';
 import { validateRequest } from '../utility/validateRequest.js';
+import { generateToken, storeSession } from '../utility/session.js';
 import { validateRequest } from '../utility/validateRequest.js';
 
 const router = Router();
@@ -66,9 +67,12 @@ router.post('/login', validateLogin, async (req, res, next) =>
     if (!passwordValid)
         return sendError(res, 401, "Invalid username/email or password.");
 
-    // TODO: Implement proper session token generation and storage
-    // For now, set a simple cookie and redirect
-    const token = `session_${ Date.now() }_${ Math.random().toString(36).substring(2) }`;
+    // Generate secure token and store session
+    const token = generateToken();
+    const stored = await storeSession(token, account.key); // account.key is the user identifier
+    if (!stored) {
+        return internalServerError(res, "Could not create session.");
+    }
     res.cookie('session', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }); // 1 day
     return res.redirect(303, "/");
 });
