@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import { dbDir, DB_TIMEOUT, EMAIL_REGEX, USERNAME_REGEX } from "../config.js";
 import { dbCommandWithTimeout } from '../db/dbProxy.js';
 import { sendError, badRequest, internalServerError } from '../utility/errorResponse.js';
-import { validateRequest } from '../utility/validateRequest.js';
 import { generateToken, storeSession } from '../utility/session.js';
 import { validateRequest } from '../utility/validateRequest.js';
 
@@ -14,7 +13,7 @@ const router = Router();
  * Uses validateRequest middleware for the chosen identifier.
  */
 function validateLogin(req, res, next) {
-    const { email } = req.body;
+    const email = (req.body?.email || "").trim().toLowerCase();
     // Choose which validation middleware to run
     const middleware = email ? validateRequest(['email', 'password']) : validateRequest(['username', 'password']);
     // Run the chosen middleware
