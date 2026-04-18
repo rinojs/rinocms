@@ -1,5 +1,0 @@
-- Task Reviewed: Implement secure session token generation and storage
-- Acceptance Criteria Status: Partially met (token generation uses crypto.randomBytes; session stored in crumbdb; login endpoint updated; verifyToken helper created). However, login endpoint will crash when session storage fails because internalServerError is not imported.
-- Risks: 1) Missing import of internalServerError leads to runtime error if session storage fails. 2) No automatic background cleanup of expired sessions (only cleaned up when verifyToken is called). 3) Token stored with account.key (database key) which may be acceptable but could be opaque. 4) No rate limiting on session verification (future middleware). 5) Cookie is httpOnly but not secure (should be secure in production).
-- Required Fixes (if any): Add import of internalServerError (or sendError) in src/server/routes/login.js to handle storage failure gracefully.
-- Decision: Rework Required

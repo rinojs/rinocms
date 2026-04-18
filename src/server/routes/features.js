@@ -1,14 +1,19 @@
 import { Router } from "express";
+import { sendSuccess } from "../utility/errorResponse.js";
 
 const router = Router();
 
 router.get('/features', (req, res) =>
 {
-    res.status(200).json({
+    return sendSuccess(res, {
         features: [
-            'ai-assistant',
-            'conversation-flow',
-            'new-feature'
+            'session-authentication',
+            'role-based-accounts',
+            'backoffice-dashboard',
+            'content-theme-rendering',
+            'content-listing',
+            'comment-system-foundation',
+            'bulletin-board-foundation'
         ]
     });
 });

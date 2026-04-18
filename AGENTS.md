@@ -1,69 +1,214 @@
-# AGENTS.md
+# AGENTS.md — Rino CMS
 
-## RinoCMS Project Definition
+You are an AI coding agent working inside the **Rino CMS** repository.
 
-RinoCMS is a content management system built with:
-- rino.js (frontend rendering system)
-- express.js (server backend)
-- crumbdb.js (file-based database)
+Your job is to make **small, correct, incremental changes** while preserving system stability and respecting project boundaries.
 
-Core goals:
-1. Authentication
-   - Login / Signup
-   - Default role on registration
-   - Role assignment & management
+---
 
-2. Backoffice (Admin only)
-   - Content writing (Toast UI Editor)
-   - Manage content, comments, settings
-   - Manage user roles
+## 0) Non-negotiable rules
 
-3. Public CMS features
-   - Content publishing
-   - Comment system
-   - Bulletin board / forum system
-   - Role-based read/write per section
+### Language / stack
+- Use **JavaScript only** (Node.js + browser)
+- Do NOT introduce TypeScript
+- Do NOT introduce new frameworks or heavy dependencies unless explicitly required
 
-Architecture must remain incremental and stable.
-No major refactors or new dependencies unless explicitly required by an existing task.
+### Architecture discipline
+- This project is **incremental-first**
+- DO NOT refactor large parts of the system unless a task explicitly requires it
+- DO NOT redesign architecture on your own
 
-## Repository Scope Rules
+### Data safety
+- `./data/**` is **production-like**
+- NEVER delete, rename, or mass-modify data files
+- NEVER write destructive migrations
 
-- Work only in this repo.
-- Prefer editing `src/**` only.
-- Do not manually edit generated output in `serve/**`.
-- Treat `data/**` as production-like: never delete/rename/mass-edit.
+### Generated output
+- `./serve/**` is **generated output**
+- DO NOT edit files inside `serve/`
 
-## Task Discipline
+---
 
-- Always work on exactly ONE task from `agents/tasks.md`.
-- Status flow: `todo -> doing -> done`.
-- If any `[doing]` task exists, do NOT start another task.
-- Do not create any new `[todo]` task if there are more than 3 `[todo]` tasks.
+## 1) Project architecture (STRICT boundaries)
 
-### agents/tasks.md format
-```
-# Tasks
+### Client (Public site)
+Work in:
+- `./src/client/**`
 
-- [todo] TASK: ...
-  - Acceptance: ...
-  - Files: ...
-```
-Task statuses must be one of: `todo`, `doing`, `done`.
+Build output:
+- `./serve/public-client/**`
 
+Responsibilities:
+- Rino.js page rendering
+- Public pages (index, login, register, etc.)
+- Components (`components/*.html`)
+- Frontend scripts (`scripts/export/*`)
+- Styles (`styles/export/*`)
+- Sitemap, feed generation
 
-## Git Rules
-- Never force push.
-- Never delete branches.
-- Never reset/rebase.
-- Only commit staged changes.
+---
 
-## Commit Format
-- Title: `TASK: <task title>`
-- Body: include what changed.
+### Backoffice (Admin UI)
+Work in:
+- `./src/backoffice/**`
 
-## Reference docs (read only if necessary)
-- If Rino.js knowledge is required, read `./agents/refs/rinojs.md`.
-- If CrumbDB knowledge is required, read `./agents/refs/crumbdbjs.md`.
-- Do NOT read reference files unless needed for the current task.
+Build output:
+- `./serve/backoffice/**`
 
+Responsibilities:
+- Admin dashboard UI
+- Content editor integration (Toast UI)
+- Admin login UI
+- Content management UI
+- Role / permission UI
+
+---
+
+### Server (Express API)
+Work in:
+- `./src/server/**`
+
+Responsibilities:
+- Express app setup
+- API routes (`routes/*`)
+- Authentication logic
+- Session handling
+- Security middleware
+- Request validation / logging
+
+---
+
+### Database layer (CrumbDB)
+Work in:
+- `./src/server/db/**`
+
+Responsibilities:
+- Account management
+- Admin account management
+- Session persistence
+- DB proxy communication (`dbProxy.js`)
+
+Rules:
+- Do NOT bypass DB layer directly
+- Always use existing DB helper functions when possible
+
+---
+
+### Shared utilities
+Work in:
+- `./src/server/utility/**`
+
+Responsibilities:
+- Logging
+- Rate limiting
+- Security headers
+- File helpers
+- Semaphore / locking
+
+---
+
+## 2) Core system goals
+
+### Authentication
+- Login / Signup
+- Session-based auth
+- Default role assignment
+- Role management
+
+### Backoffice
+- Admin-only access
+- Content creation (Toast UI Editor)
+- Manage:
+  - content
+  - comments
+  - users
+  - roles
+  - settings
+
+### Public CMS
+- Content publishing
+- Comment system
+- Bulletin board / forum
+- Role-based read/write permissions
+
+## Connecting Payment Gateway
+- Paypal
+- And the other available options for payment gateway for commerce
+
+---
+
+## 3) Key constraints (VERY IMPORTANT)
+
+### Rino.js rules
+- Components must use:
+  - `<component rino-path="..." />`
+- Do NOT invent new templating systems
+- Follow existing `rino-config.js`
+
+### Build system rules
+- `/scripts/export/` → compiled output
+- `/styles/export/` → bundled output
+- Shared/importable files must NOT live inside `export/`
+
+### Server rules
+- Always return structured responses
+
+---
+
+## 4) Workflow expectations
+
+### Before coding
+- Identify which layer the change belongs to:
+  - client / backoffice / server / db
+- Touch the **minimum number of files**
+- Reuse existing patterns
+
+### While coding
+- Keep changes small and focused
+- Do not introduce parallel systems
+- Follow naming conventions already in the repo
+
+### After coding
+- Ensure:
+  - server still boots
+  - client builds correctly
+  - backoffice builds correctly
+- Do not break existing routes or APIs
+
+---
+
+## 5) Forbidden actions
+
+- Do NOT edit `serve/**`
+- Do NOT modify `data/**` destructively
+- Do NOT introduce TypeScript
+- Do NOT add new frameworks
+- Do NOT refactor unrelated systems
+- Do NOT bypass DB abstraction
+- Do NOT move large numbers of files
+
+---
+
+## 6) If you are unsure
+
+If something is unclear:
+- Do NOT guess
+- Prefer safe, minimal changes
+- Document assumptions in:
+  - `openclaw-dev/code-review.md` (or equivalent)
+
+---
+
+## 7) Output discipline
+
+- Only implement what the task requires
+- Do not create new directories unless necessary
+- Do not over-engineer solutions
+- Keep the system stable above all
+
+---
+
+## 8) Reference docs (read only when needed)
+
+- `./refs/rinojs.md` — Rino.js system
+- `./refs/crumbdbjs.md` — CrumbDB database

@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <script type="text/javascript" src="/scripts/hello.js"></script>
-    <script type="text/javascript" src="/scripts/helloTS.js"></script>
-    <link rel="stylesheet" href="/styles/style.css" />
-    <meta name="description" content="Login" />
-    <meta name="og:title" content="Rino.js" />
-    <meta name="og:description" content="Login" />
-    <!-- 
-    <meta name="og:site_name" content="Site Name" />
-    <meta name="og:url" content="https://sitename/" />
-    <meta name="og:image" content=""/>
-    -->
+    <component @path="head" />
+    <meta name="description" content="Backoffice login" />
+    <meta name="og:title" content="Rino CMS Backoffice Login" />
+    <meta name="og:description" content="Sign in to access the Rino CMS backoffice." />
 
     <title>Rino CMS Backoffice Login</title>
   </head>
   <body>
-    <component @path="globalNav" />
+    <component @path="header" />
     <main>
-      <h2>Login</h2>
-      <form method="POST" action="/backoffice/login">
+      <section class="dashboard-hero">
+        <p class="dashboard-kicker">Admin access</p>
+        <h1>Sign in to the backoffice</h1>
+        <p class="dashboard-copy">
+          Backoffice pages are now protected by the CMS session flow and require
+          an admin-capable account.
+        </p>
+      </section>
+
+      <section class="dashboard-panel">
+        <h2>Login</h2>
+        <form method="POST" action="/login">
         <input name="username" placeholder="Username" required />
         <br />
         <br />
@@ -33,8 +35,9 @@
         <br />
         <br />
         <button type="submit">Login</button>
-      </form>
-      <p>Don't have an account? <a href="/register">Register</a></p>
+        </form>
+        <p>Need a regular account first? <a href="/register">Register</a></p>
+      </section>
     </main>
     <footer></footer>
   </body>

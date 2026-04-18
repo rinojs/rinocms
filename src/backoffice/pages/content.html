@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <component @path="head" />
+    <meta name="description" content="Backoffice content manager" />
+    <meta name="og:title" content="Rino CMS Content Manager" />
+    <meta
+      name="og:description"
+      content="Create, edit, publish, and remove content in the Rino CMS backoffice."
+    />
+    <title>Rino CMS Content</title>
+  </head>
+  <body>
+    <component @path="header" />
+
+    <div id="backoffice-container" class="backoffice-container">
+      <component @path="sidebar" />
+      <div id="main-container" class="main-container">
+        <main>
+          <section class="dashboard-hero">
+            <p class="dashboard-kicker">Content manager</p>
+            <h1>Draft, publish, and revise CMS content</h1>
+            <p class="dashboard-copy">
+              This is the first server-backed content workspace in the
+              backoffice. It supports create, edit, publish state, and delete.
+            </p>
+          </section>
+
+          <section class="dashboard-grid dashboard-grid--content">
+            <section class="dashboard-panel">
+              <h2 id="editor-title">Create content</h2>
+              <form id="content-form" class="content-form">
+                <input id="currentSlug" name="currentSlug" type="hidden" />
+
+                <label class="field">
+                  <span>Title</span>
+                  <input id="title" name="title" required />
+                </label>
+
+                <label class="field">
+                  <span>Slug</span>
+                  <input id="slug" name="slug" placeholder="auto-from-title" />
+                </label>
+
+                <label class="field">
+                  <span>Excerpt</span>
+                  <textarea id="excerpt" name="excerpt" rows="3"></textarea>
+                </label>
+
+                <label class="field">
+                  <span>Body</span>
+                  <textarea id="body" name="body" rows="14" required></textarea>
+                </label>
+
+                <label class="field">
+                  <span>Status</span>
+                  <select id="status" name="status">
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                  </select>
+                </label>
+
+                <div class="content-form-actions">
+                  <button type="submit">Save content</button>
+                  <button id="reset-form" type="button">Clear</button>
+                </div>
+              </form>
+              <p id="content-feedback" class="content-feedback" aria-live="polite"></p>
+            </section>
+
+            <section class="dashboard-panel">
+              <h2>Saved content</h2>
+              <div id="content-list" class="content-list"></div>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

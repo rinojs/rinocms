@@ -15,7 +15,7 @@ export function validateRequest(fields)
         if (fields.includes('username'))
         {
             const username = (req.body?.username || '').trim();
-            if (!username || !USERNAME_REGEX.test(username) || username.includes('admin'))
+            if (!username || !USERNAME_REGEX.test(username))
                 errors.push('Invalid username.');
         }
 

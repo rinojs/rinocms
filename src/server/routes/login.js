@@ -3,7 +3,8 @@ import bcrypt from 'bcrypt';
 import { dbDir, DB_TIMEOUT, EMAIL_REGEX, USERNAME_REGEX } from "../config.js";
 import { dbCommandWithTimeout } from '../db/dbProxy.js';
 import { sendError, badRequest, internalServerError } from '../utility/errorResponse.js';
-import { generateToken, storeSession } from '../utility/session.js';
+import { deleteSession, generateToken, storeSession } from '../utility/session.js';
+import { getCookieValue, getSessionCookieOptions } from '../utility/cookies.js';
 import { validateRequest } from '../utility/validateRequest.js';
 
 const router = Router();
@@ -28,7 +29,17 @@ async function findAccountByUsernameOrEmail(username, email)
 {
     // Prefer email if provided
     const keyword = email ? `@@${ email }` : `${ username }@@`;
-    const result = await dbCommandWithTimeout(DB_TIMEOUT, "getmultiplebykeyword", dbDir, "rinocms", "account", keyword, 0, 1);
+    const result = await dbCommandWithTimeout(
+        DB_TIMEOUT,
+        "getmultiplebykeyword",
+        dbDir,
+        "rinocms",
+        "account",
+        keyword,
+        0,
+        1
+    );
+
     if (!result?.data || Object.keys(result.data).length === 0)
         return null;
 
@@ -68,12 +79,19 @@ router.post('/login', validateLogin, async (req, res, next) =>
 
     // Generate secure token and store session
     const token = generateToken();
+    const currentToken = getCookieValue(req.headers.cookie, 'session');
+    if (currentToken)
+        await deleteSession(currentToken);
+
     const stored = await storeSession(token, account.key); // account.key is the user identifier
     if (!stored) {
         return internalServerError(res, "Could not create session.");
     }
-    res.cookie('session', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }); // 1 day
-    return res.redirect(303, "/");
+    res.cookie('session', token, getSessionCookieOptions());
+
+    const isAdmin = Array.isArray(account.data.roles) && account.data.roles.includes('admin');
+
+    return res.redirect(303, isAdmin ? "/backoffice/" : "/");
 });
 
 export default router;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.esm.js"
+></script>
+<script
+  nomodule
+  src="https://cdn.jsdelivr.net/npm/ionicons/dist/ionicons/ionicons.js"
+></script>
+<link rel="stylesheet" href="/styles/style.css" />
+<script type="text/javascript" src="/scripts/main.js"></script>
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Browse published content from Rino CMS."
+    />
+    <meta name="og:title" content="Rino CMS Content" />
+    <meta
+      name="og:description"
+      content="Browse published posts managed through the Rino CMS backoffice."
+    />
+    <title>Rino CMS Content</title>
+  </head>
+  <body>
+    <div id="globalNav">
+  <a href="/">Home</a>
+  <a href="/content-list">Published content</a>
+  <a href="/login">Login</a>
+  <a href="/register">Register</a>
+  <a href="/backoffice/">Backoffice</a>
+</div>
+
+
+    <main class="cms-homepage">
+      <section class="hero-card">
+        <p class="eyebrow">Published content</p>
+        <h1>Browse content published from the CMS backoffice.</h1>
+        <p class="hero-copy">
+          Only published entries are exposed here. Drafts remain restricted to
+          the admin workflow.
+        </p>
+      </section>
+
+      <section class="cms-panel">
+        <h2>Available posts</h2>
+        <div id="public-content-list" class="public-content-list"></div>
+      </section>
+    </main>
+    <footer></footer>
+  </body>
+</html>

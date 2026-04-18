@@ -1,13 +1,10 @@
 import { Router } from "express";
-import path from 'path';
-import { sendNotFound } from "../../sender/sendNotFound.js";
-import { sendHTML } from '../../sender/sendHTML.js';
-import { dbDir, publicClientDir } from "../../config.js";
+import { dbDir } from "../../config.js";
 import bcrypt from 'bcrypt';
 import { dbCommandWithTimeout } from '../../db/dbProxy.js'
 import { doesAccountExistByUsername } from "../../db/index.js";
-import { badRequest, internalServerError } from '../utility/errorResponse.js';
-import { validateRequest } from '../utility/validateRequest.js';
+import { badRequest, internalServerError } from '../../utility/errorResponse.js';
+import { validateRequest } from '../../utility/validateRequest.js';
 
 const router = Router();
 

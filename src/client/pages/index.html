@@ -1,62 +1,70 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <script type="text/javascript" src="/scripts/hello.js"></script>
-    <script type="text/javascript" src="/scripts/helloTS.js"></script>
-    <link rel="stylesheet" href="/styles/style.css" />
+    <component rino-path="head" />
     <meta
       name="description"
-      content="Fast learning, preprocessing, intuitive web framework. Rino.js"
+      content="Rino CMS helps teams publish content, manage access, and operate a backoffice workflow."
     />
-    <meta name="og:title" content="Rino.js" />
+    <meta name="og:title" content="Rino CMS" />
     <meta
       name="og:description"
-      content="Fast learning, preprocessing, intuitive web framework. Rino.js"
+      content="Publish content, manage members, and run a backoffice workflow with Rino CMS."
     />
-    <!-- 
-    <meta name="og:site_name" content="Site Name" />
-    <meta name="og:url" content="https://sitename/" />
-    <meta name="og:image" content=""/>
-    -->
-
-    <title>Rino.js</title>
+    <title>Rino CMS</title>
   </head>
   <body>
     <component rino-path="globalNav" />
-    <main>
-      <img id="mainImg" src="/rino256.png" />
-      <h1>Fast learning, preprocessing, intuitive web framework</h1>
-      <a href="https://rinojs.org/" target="_blank">Rino Website!</a>
-      <a href="https://github.com/rinojs/rinojs" target="_blank">Github</a>
-      <component
-        rino-path="button"
-        rino-tag="button"
-        type="button"
-        onclick="hello.hello()"
-      />
-      <component
-        rino-path="button"
-        rino-tag="button"
-        type="button"
-        onclick="helloTS.hello()"
-      />
-      <script rino-type="md" type="text/markdown">
-        ## Hello world!
+    <main class="cms-homepage">
+      <section class="hero-card">
+        <p class="eyebrow">Content-first publishing</p>
+        <h1>Rino CMS gives this project a real editorial front door.</h1>
+        <p class="hero-copy">
+          Manage accounts, publish structured content, and keep a clear split
+          between the public site and the backoffice.
+        </p>
+        <div class="hero-actions">
+          <a class="hero-action" href="/register">Create account</a>
+          <a class="hero-action hero-action--secondary" href="/login">Sign in</a>
+          <a class="hero-action hero-action--secondary" href="/backoffice/">
+            Open backoffice
+          </a>
+        </div>
+      </section>
 
-        This is written in Markdown!
+      <section class="cms-grid" aria-label="Platform overview">
+        <article class="cms-card">
+          <h2>Authentication</h2>
+          <p>
+            Session-based login, registration, and role-aware accounts provide
+            the base for protected authoring and moderation.
+          </p>
+        </article>
+        <article class="cms-card">
+          <h2>Publishing</h2>
+          <p>
+            Content themes and list templates are already in place for article
+            pages and content archives.
+          </p>
+        </article>
+        <article class="cms-card">
+          <h2>Operations</h2>
+          <p>
+            The backoffice is positioned to grow into content, comment, role,
+            and settings management without splitting the stack.
+          </p>
+        </article>
+      </section>
 
-        - This is written in Markdown!
-      </script>
-      <script rino-type="ts" type="text/typescript">
-        // This is for templating html content
-        let world: string = "Hello world! from typescript!";
-        console.log(world);
-      </script>
-      <script rino-type="js" type="text/javascript">
-        // This is for templating html content
-        console.log("Hello world! from javascript!");
-      </script>
+      <section class="cms-panel" aria-labelledby="cms-roadmap-title">
+        <h2 id="cms-roadmap-title">Current CMS direction</h2>
+        <ul class="cms-list">
+          <li>Public content publishing with content and list theme templates</li>
+          <li>Admin backoffice workflow for writing and operational controls</li>
+          <li>Role-based access model for future sections and discussion areas</li>
+          <li>Forum and comment features built on the same incremental server stack</li>
+        </ul>
+      </section>
     </main>
     <footer></footer>
   </body>

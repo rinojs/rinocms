@@ -53,7 +53,7 @@ export async function getSession(token) {
 export async function deleteSession(token) {
     await dbCommandWithTimeout(
         DB_TIMEOUT,
-        'delete',
+        'remove',
         dbDir,
         DB_NAME,
         TABLE,

@@ -1,11 +1,71 @@
 import chalk from 'chalk';
 import { input, confirm, password } from '@inquirer/prompts';
-import { dbDir, logDir } from "./config.js";
+import { dbDir, logDir, DB_TIMEOUT } from "./config.js";
 import bcrypt from 'bcrypt';
 import { dbCommandWithTimeout } from './db/dbProxy.js'
-import { addAdminAccount } from './db/index.js';
 import fs from 'fs/promises';
-import path from 'path';
+
+function buildAccountKey(username, email)
+{
+    return `${ username }@@${ email }`;
+}
+
+function parseTableEntry(key, rawValue)
+{
+    try
+    {
+        return { key, data: JSON.parse(rawValue) };
+    }
+    catch
+    {
+        return null;
+    }
+}
+
+async function getTableEntries(table)
+{
+    const result = await dbCommandWithTimeout(DB_TIMEOUT, "getall", dbDir, "rinocms", table);
+    if (!result || typeof result !== 'object') return [];
+
+    return Object.entries(result)
+        .map(([key, rawValue]) => parseTableEntry(key, rawValue))
+        .filter(Boolean);
+}
+
+async function migrateLegacyAdminAccounts()
+{
+    const legacyAdmins = await getTableEntries('admin-account');
+
+    for (const admin of legacyAdmins)
+    {
+        const existing = await dbCommandWithTimeout(DB_TIMEOUT, "get", dbDir, "rinocms", "account", admin.key);
+        if (existing) continue;
+
+        const roles = Array.isArray(admin.data.roles) ? admin.data.roles : [];
+        const mergedRoles = Array.from(new Set([...roles, 'admin']));
+        const accountData = {
+            ...admin.data,
+            roles: mergedRoles,
+            updatedAt: new Date().toISOString(),
+        };
+
+        await dbCommandWithTimeout(
+            DB_TIMEOUT,
+            "add",
+            dbDir,
+            "rinocms",
+            "account",
+            admin.key,
+            JSON.stringify(accountData)
+        );
+    }
+}
+
+async function hasAdminAccount()
+{
+    const accounts = await getTableEntries('account');
+    return accounts.some((account) => Array.isArray(account.data.roles) && account.data.roles.includes('admin'));
+}
 
 export async function setup()
 {
@@ -46,10 +106,9 @@ ${ chalk.white('https://github.com/sponsors/opdev1004') }
     }
 
     console.log('Checking Admin...');
+    await migrateLegacyAdminAccounts();
 
-    const accountData = await dbCommandWithTimeout(10000, "getMultiple", dbDir, "rinocms", "admin-account", 0, 1);
-
-    if (Object.keys(accountData.data).length !== 0)
+    if (await hasAdminAccount())
     {
         console.log(`${ chalk.green(`✅ Admin already exists.`) }`);
     }
@@ -89,6 +148,7 @@ ${ chalk.white('https://github.com/sponsors/opdev1004') }
             }
 
             const now = new Date().toISOString();
+            const accountKey = buildAccountKey(adminUsername, adminEmail);
             const data = JSON.stringify({
                 username: adminUsername,
                 email: adminEmail,
@@ -99,7 +159,15 @@ ${ chalk.white('https://github.com/sponsors/opdev1004') }
                 updatedAt: now,
             });
 
-            const result = await addAdminAccount(adminUsername, adminEmail, data);
+            const result = await dbCommandWithTimeout(
+                DB_TIMEOUT,
+                "add",
+                dbDir,
+                "rinocms",
+                "account",
+                accountKey,
+                data
+            );
 
             if (result)
             {

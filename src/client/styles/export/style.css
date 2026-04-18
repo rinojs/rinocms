@@ -195,6 +195,105 @@ footer {
   line-height: normal;
 }
 
+#globalNav {
+  display: flex;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: solid 1px #666666;
+  background-color: #141414;
+}
+
+#globalNav a {
+  color: #f2f2f2;
+}
+
+.cms-homepage {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero-card,
+.cms-card,
+.cms-panel {
+  border: solid 1px #666666;
+  background-color: #181818;
+}
+
+.hero-card {
+  padding: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #d7ab4c;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.82rem;
+}
+
+.hero-copy {
+  max-width: 54rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.hero-action {
+  display: inline-block;
+  padding: 10px 14px;
+  border: solid 1px #3794ff;
+  background-color: #3794ff;
+  color: #101010;
+}
+
+.hero-action--secondary {
+  background-color: transparent;
+  color: #f2f2f2;
+}
+
+.cms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.cms-card,
+.cms-panel {
+  padding: 18px;
+}
+
+.cms-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.public-content-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.public-content-card,
+.public-content-detail {
+  border: solid 1px #666666;
+  background-color: #181818;
+  padding: 18px;
+}
+
+.public-content-body p {
+  margin: 0 0 1rem;
+}
+
+.public-content-excerpt {
+  color: #d7d7d7;
+}
+
 .published-time {
   color: #d7ab4c;
   font-size: 0.9em;
@@ -205,6 +304,10 @@ footer {
 @media all and (min-width: 0px) and (max-width: 1280px) {
   .menu-tab {
     display: flex;
+  }
+
+  .cms-grid {
+    grid-template-columns: 1fr;
   }
 
   .sidebar {

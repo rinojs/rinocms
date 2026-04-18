@@ -18,46 +18,50 @@
       <component @path="sidebar" />
       <div id="main-container" class="main-container">
         <main>
-          <h1 class="page-title">Welcome to Rino CMS Backoffice!!</h1>
-          <h2>Rino.js resources</h2>
-          <ul class="links">
-            <li>
-              <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
-              <a
-                href="https://github.com/rinojs/rinocms"
-                target="_blank"
-                rel="noopener"
-              >
-                Rino CMS GitHub
-              </a>
-            </li>
-            <li>
-              <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
-              <a
-                href="https://github.com/rinojs/rinojs"
-                target="_blank"
-                rel="noopener"
-              >
-                Rino.js GitHub
-              </a>
-            </li>
-            <li>
-              <ion-icon name="globe-outline" aria-hidden="true"></ion-icon>
-              <a href="https://rinojs.org/" target="_blank" rel="noopener">
-                Rino.js Website
-              </a>
-            </li>
-            <li>
-              <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
-              <a
-                href="https://github.com/sponsors/opdev1004"
-                target="_blank"
-                rel="noopener"
-              >
-                Support & Sponsoring
-              </a>
-            </li>
-          </ul>
+          <section class="dashboard-hero">
+            <p class="dashboard-kicker">Backoffice overview</p>
+            <h1 class="page-title">Run the editorial side of Rino CMS.</h1>
+            <p class="dashboard-copy">
+              This backoffice should be the operational center for content,
+              moderation, users, roles, and site settings. The dashboard now
+              reflects that direction instead of generic starter content.
+            </p>
+          </section>
+
+          <section class="dashboard-grid" aria-label="Backoffice modules">
+            <article class="dashboard-card">
+              <h2>Content</h2>
+              <p>
+                Prepare article writing, content reviews, and publishing queues
+                around the Toast UI editor flow.
+              </p>
+              <p><a href="/backoffice/content">Open content manager</a></p>
+            </article>
+            <article class="dashboard-card">
+              <h2>Community</h2>
+              <p>
+                Moderate comments and forum-style sections with clear ownership
+                for staff and section managers.
+              </p>
+            </article>
+            <article class="dashboard-card">
+              <h2>Access</h2>
+              <p>
+                Manage member roles and future read or write permissions per
+                section from one place.
+              </p>
+            </article>
+          </section>
+
+          <section class="dashboard-panel" aria-labelledby="dashboard-next-title">
+            <h2 id="dashboard-next-title">What this dashboard should expose next</h2>
+            <ul class="dashboard-list">
+              <li>Draft and published content lists</li>
+              <li>Comment and discussion moderation queues</li>
+              <li>User, role, and section permission management</li>
+              <li>Site settings and publication controls</li>
+            </ul>
+          </section>
         </main>
       </div>
     </div>
